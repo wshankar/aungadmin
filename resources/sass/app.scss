@@ -17,3 +17,8 @@
 
 //Webfonts
 $fa-font-path:"../webfonts";
+
+.router-link-active{
+    background: indigo;
+    color: white !important;
+}
