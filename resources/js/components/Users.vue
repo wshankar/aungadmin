@@ -128,12 +128,27 @@ import { Form, HasError, AlertError } from 'vform'
             },
 
             createUser(){
-                this.form.post('api/user');
+                this.$Progress.start()
+                this.form.post('api/user')
+                .then(()=>{
+                    Fire.$emit('AfterCreate')
+                    $('#addNew').modal('hide')
+                    this.$Progress.finish()
+                    toast.fire({
+                        icon: 'success',
+                        title: 'User Created successfully'
+                        })
+                })
+                .catch(()=>{
+                    this.$Progress.fail()
+                })
+                
             }
         },
 
         created() {
             this.loadUsers();
+            Fire.$on('AfterCreate', () => this.loadUsers())
         }
     }
 </script>
